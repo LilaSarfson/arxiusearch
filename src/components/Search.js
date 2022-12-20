@@ -7,7 +7,7 @@ export default function Search (){
 
 const handleClick = (e) =>{
     e.preventDefault();
-    let newdata = data.map((calles)=> calles.calle === calle);
+    let newdata = data.find((calles)=> calles.calle === calle);
     setFindedData(newdata);
     console.log(newdata)
 }
