@@ -1,21 +1,24 @@
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 export default function FormView (){
     const[street, setStreet]=useState('');
     const [num, setNum]= useState('');
     const [district, setDistrict]= useState('')
     const [seccion, setSeccion]= useState('')
-    let dataStreet =[];
+    const [dataStreet, setDataStreet]=useState([])
+
+    useEffect(()=>{
+        localStorage.setItem("calles", JSON.stringify(dataStreet));
+    }, [dataStreet])
     const armarObj = () =>{
         // No se pushea porque pusheo todo el rato el mismo objeto. No importa que le randomnice el nombre
-        let randomName = {calle: street, numero:num, distrito:district, seccion:seccion}
-        dataStreet.push(randomName)   
-        console.log(dataStreet);
+        let objStreet = {calle: street, numero:num, distrito:district, seccion:seccion}
+        setDataStreet(dataStreet=> [...dataStreet, objStreet]) 
     }   
     const SetearObj = (e) =>{
         e.preventDefault()
         armarObj()
-        // localStorage.setItem("calles", JSON.stringify(dataStreet));
+        console.log(dataStreet)
     }
 
     return(
@@ -31,6 +34,8 @@ export default function FormView (){
             <input onChange={(e)=>{setSeccion(e.target.value); e.preventDefault()}} className="border-2 border-black border-solid w-1/3" type='text'></input>
             <button type="submit" value="submit form" className="border-solid border-2 border-blue self-center" onClick={SetearObj}>Enviar</button>
         </form>
+        <br/>
+        <div className='w-1/3 self-center'><p>{JSON.stringify(dataStreet)}</p></div>
     </div> 
     )
 }
