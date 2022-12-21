@@ -11,13 +11,11 @@ const handleClick = (e) =>{
     if(calle || calle && num){
         let newdata = data.find((calles)=> calles.calle === calle);
         if(newdata.numero === num) {
-        setFindedData(newdata)}
-        else {
-        let arrayNum = newdata.numero
-        for (let index = 0; index < arrayNum.length; index++) {
-            const element = arrayNum[index];
-            console.log(element)
+            setFindedData(newdata)
         }
+        else {
+            let arrayNum = newdata.numero
+           arrayNum.find(numeros => numeros === parseInt(num)) ? setFindedData(newdata) : console.log('esa calle no tiene ese numero')
         }
 
     }
