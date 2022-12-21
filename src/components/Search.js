@@ -4,12 +4,13 @@ export default function Search (){
     const[calle, setCalle]= useState('')
     const[num, setNum]= useState('')
     const[data, setData]=useState(dataStreet)
+    const[active, setActive]=useState(false)
     const[findedData, setFindedData]=useState('')
 
 const handleClick = (e) =>{
     e.preventDefault();
-    if(calle || calle && num){
-        let newdata = data.find((calles)=> calles.calle === calle);
+    let newdata = data.find((calles)=> calles.calle === calle);
+    if(newdata){
         if(newdata.numero === num) {
             setFindedData(newdata)
         }
@@ -17,10 +18,14 @@ const handleClick = (e) =>{
             let arrayNum = newdata.numero
            arrayNum.find(numeros => numeros === parseInt(num)) ? setFindedData(newdata) : console.log('esa calle no tiene ese numero')
         }
-
     }
     else{
-        console.log('Falta nombre en el input')}
+        setFindedData('')
+        setActive(true)
+        setTimeout(() => {
+            setActive(false);
+          }, "5000")
+        console.log('Nombre incorrecto')}
 }
 
     return(
@@ -28,7 +33,10 @@ const handleClick = (e) =>{
             <form className='flex flex-col items-center'>
                 <h2 className='font-bold'>Busca tu calle</h2>
                 <label>Calle</label>
-                <input onChange={(e)=>{setCalle(e.target.value)}} className="border-2 border-black border-solid w-1/3" type='text'></input>
+                { active ?
+                <p className='text-red-500 underline'>Ese nombre no se encuentra en nuestra base de datos</p> : ''
+                }
+                <input required onChange={(e)=>{setCalle(e.target.value)}} className="border-2 border-black border-solid w-1/3" type='text'></input>
                 <label>Número</label>
                 <input onChange={(e)=>{setNum(e.target.value)}} className="border-2 border-black border-solid w-1/3" type='text'></input>
                 <button type="submit" value="submit form" className="border-solid border-2 border-blue self-center" onClick={handleClick}>Enviar</button>
