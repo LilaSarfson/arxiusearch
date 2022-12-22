@@ -9,15 +9,19 @@ export default function Search (){
 
 const handleClick = (e) =>{
     e.preventDefault();
-    let newdata = data.find((calles)=> calles.calle === calle);
-    if(newdata){
-        if(newdata.numero === num) {
+    let newdata = data.find((calles)=> calles.calle === calle.toLowerCase());
+    if(newdata && num){
+        if(newdata.numero === num || newdata.numero=== 'toda') {
             setFindedData(newdata)
         }
         else {
             let arrayNum = newdata.numero
            arrayNum.find(numeros => numeros === parseInt(num)) ? setFindedData(newdata) : console.log('esa calle no tiene ese numero')
         }
+    }
+    else if (newdata){
+        setFindedData(newdata)
+
     }
     else{
         setFindedData('')

@@ -11,8 +11,7 @@ export default function FormView (){
         localStorage.setItem("calles", JSON.stringify(dataStreet));
     }, [dataStreet])
     const armarObj = () =>{
-        // No se pushea porque pusheo todo el rato el mismo objeto. No importa que le randomnice el nombre
-        let objStreet = {calle: street, numero:num, distrito:district, seccion:seccion}
+        let objStreet = {calle: street, numero:[num], distrito:district, seccion:seccion}
         setDataStreet(dataStreet=> [...dataStreet, objStreet]) 
     }   
     const SetearObj = (e) =>{
