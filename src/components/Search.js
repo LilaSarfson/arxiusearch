@@ -4,6 +4,7 @@ import HandleError from './HandleError'
 export default function Search (){
     const[calle, setCalle]= useState('')
     const[num, setNum]= useState('')
+    const[posicion, setPosicion]= useState('')
     const[data, setData]=useState(dataStreet)
     const[activeName, setActiveNam]=useState(false)
     const[activeNum, setActiveNum]=useState(false)
@@ -11,10 +12,18 @@ export default function Search (){
 
 const handleClick = (e) =>{
     e.preventDefault();
-    let newdata = data.find((calles)=> calles.calle === calle.toLowerCase());
+    let newdata = data.filter((calles)=> calles.calle === calle.toLowerCase());
+    // console.log(newdata)
     if(newdata && num){
         if(newdata.numero === num || newdata.numero=== 'toda') {
             setFindedData(newdata)
+        }
+        else if (newdata.length !== 1){
+            Object.entries(newdata).forEach(([key, value]) => {
+                (value.numero).map((numer) => numer === parseInt(num)) ? setPosicion(key) : console.log('ese numero no esta e el array')
+                console.log(posicion)
+                posicion ? setFindedData(newdata[posicion]) : console.log('no se puedo')
+              });
         }
         else {
             let arrayNum = newdata.numero
@@ -24,7 +33,11 @@ const handleClick = (e) =>{
         }
     }
     else if (newdata){
-        setFindedData(newdata)
+        if(newdata.length != 1){
+            console.log('necesita un numero')
+        }
+        else{
+            setFindedData(newdata)}
 
     }
     else{
