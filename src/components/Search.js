@@ -4,7 +4,6 @@ import HandleError from './HandleError'
 export default function Search (){
     const[calle, setCalle]= useState('')
     const[num, setNum]= useState('')
-    const[posicion, setPosicion]= useState('')
     const[data, setData]=useState(dataStreet)
     const[activeName, setActiveNam]=useState(false)
     const[activeNum, setActiveNum]=useState(false)
@@ -20,9 +19,11 @@ const handleClick = (e) =>{
         }
         else if (newdata.length !== 1){
             Object.entries(newdata).forEach(([key, value]) => {
-                (value.numero).map((numer) => numer === parseInt(num)) ? setPosicion(key) : console.log('ese numero no esta e el array')
-                console.log(posicion)
-                posicion ? setFindedData(newdata[posicion]) : console.log('no se puedo')
+                let findedNum = (value.numero).includes(parseInt(num)) 
+                console.log(findedNum)
+                findedNum ? setFindedData(newdata[key]) : setActiveNum(true);setTimeout(() => {
+                    setActiveNum(false);
+                  }, "5000")
               });
         }
         else {
