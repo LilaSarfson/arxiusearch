@@ -12,7 +12,6 @@ export default function Search (){
 const handleClick = (e) =>{
     e.preventDefault();
     let newdata = data.filter((calles)=> calles.calle === (calle.toLowerCase()).trim());
-    console.log(newdata)
     if(newdata.length != 0){
         if(newdata[0].numero === num || newdata[0].numero === 'toda') { //Controlo las calles con toods los número en el mismo sitio
             setFindedData(newdata[0])
@@ -21,10 +20,7 @@ const handleClick = (e) =>{
             Object.entries(newdata).forEach(([key, value]) => {
                 let findedNum = (value.numero).includes(parseInt(num)) 
                 console.log(findedNum)
-                findedNum ? setFindedData(newdata[key]) : setActiveNum(true);setTimeout(() => {
-                    setActiveNum(false);
-                }, "5000")
-
+                findedNum ? setFindedData(newdata[key]) : console.log('ese numero chungi')
               });
             }
     }
