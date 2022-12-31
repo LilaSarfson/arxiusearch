@@ -11,35 +11,22 @@ export default function Search (){
 
 const handleClick = (e) =>{
     e.preventDefault();
-    let newdata = data.filter((calles)=> calles.calle === calle.toLowerCase());
-    // console.log(newdata)
-    if(newdata && num){
-        if(newdata.numero === num || newdata.numero=== 'toda') {
-            setFindedData(newdata)
+    let newdata = data.filter((calles)=> calles.calle === (calle.toLowerCase()).trim());
+    console.log(newdata)
+    if(newdata.length != 0){
+        if(newdata[0].numero === num || newdata[0].numero === 'toda') { //Controlo las calles con toods los número en el mismo sitio
+            setFindedData(newdata[0])
         }
-        else if (newdata.length !== 1){
+        else if (newdata.length !== 1){ //Controlo las calles pares e impares
             Object.entries(newdata).forEach(([key, value]) => {
                 let findedNum = (value.numero).includes(parseInt(num)) 
                 console.log(findedNum)
                 findedNum ? setFindedData(newdata[key]) : setActiveNum(true);setTimeout(() => {
                     setActiveNum(false);
-                  }, "5000")
-              });
-        }
-        else {
-            let arrayNum = newdata.numero
-           arrayNum.find(numeros => numeros === parseInt(num)) ? setFindedData(newdata) : setActiveNum(true);setTimeout(() => {
-            setActiveNum(false);
-          }, "5000")
-        }
-    }
-    else if (newdata){
-        if(newdata.length != 1){
-            console.log('necesita un numero')
-        }
-        else{
-            setFindedData(newdata)}
+                }, "5000")
 
+              });
+            }
     }
     else{
         setFindedData('')
