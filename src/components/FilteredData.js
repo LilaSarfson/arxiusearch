@@ -9,8 +9,8 @@ export default function FilterData (){
         let distSelec = e.target.value
         let dataDis= data.filter((calles)=> calles.distrito === distSelec)
         setdistData(dataDis)
-        console.log(dataDis)
-    }
+        console.log(districData)
+        }
     return(
         <div className="m-auto w-1/3">
             <label for="cars">Choose a district:</label>
@@ -20,11 +20,11 @@ export default function FilterData (){
                 <option value={dis}>{dis}</option>))
             }
             </select>
-            {
-                districData.map((calle) =>(
-                    <p className="w-full">Calle: {calle.calle}, Sección: {calle.seccion}, Números: {calle.numero}</p>
+            { districData ?
+                districData.map((calles, index) =>(
+                    <p key={index} className="w-full m-">Calle: {calles.calle}, Sección: {calles.seccion}, Números: {calles.numero}</p>
                 )
-                )
+                ) : ''
             }
         </div>
     )

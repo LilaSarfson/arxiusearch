@@ -12,17 +12,21 @@ export default function Search (){
 const handleClick = (e) =>{
     e.preventDefault();
     let newdata = data.filter((calles)=> calles.calle === (calle.toLowerCase()).trim());
-    if(newdata.length != 0){
-        if(newdata[0].numero === num || newdata[0].numero === 'toda') { //Controlo las calles con toods los número en el mismo sitio
+    if(newdata.length !== 0){
+        if(newdata[0].numero === 'toda') { //Controlo las calles con toods los número en el mismo sitio
             setFindedData(newdata[0])
         }
-        else if (newdata.length !== 1){ //Controlo las calles pares e impares
+        else if (newdata.length > 1){ //Controlo las calles pares e impares
             Object.entries(newdata).forEach(([key, value]) => {
                 let findedNum = (value.numero).includes(parseInt(num)) 
-                console.log(findedNum)
                 findedNum ? setFindedData(newdata[key]) : console.log('ese numero chungi')
               });
             }
+        else{
+            let findedNum = (newdata[0].numero).includes(parseInt(num)) 
+            console.log(findedNum)
+            findedNum ? setFindedData(newdata[0]) : setActiveNum(true)
+        }    
     }
     else{
         setFindedData('')
